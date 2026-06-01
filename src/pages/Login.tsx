@@ -29,7 +29,7 @@ export default function Login() {
   }
 
   return (
-    <div className="mx-auto flex min-h-full max-w-md flex-col justify-center px-5 py-10 safe-top safe-bottom stagger">
+    <div className="mx-auto flex min-h-full max-w-md flex-col justify-center px-5 pt-[max(2.5rem,env(safe-area-inset-top))] pb-[max(2.5rem,env(safe-area-inset-bottom))] stagger">
       <header className="mb-8 text-center">
         <div className="mb-2 text-5xl drop-shadow-[0_0_18px_rgba(212,175,55,0.4)]">♠️</div>
         <h1 className="font-display text-5xl leading-none text-gold-300">Casino Night</h1>

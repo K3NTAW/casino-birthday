@@ -51,7 +51,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="mx-auto flex min-h-full max-w-md flex-col">
-      <main className="flex-1 px-4 pb-28 pt-2 safe-top">
+      {/* safe-top insets under the island/status bar; the bottom padding is a
+          precise nav clearance (nav height + home-indicator inset), no excess. */}
+      <main className="flex-1 px-4 safe-top pb-[calc(5.5rem_+_env(safe-area-inset-bottom))]">
         {/* Re-key on route so each screen rises in. */}
         <div key={loc.pathname} className="rise">
           {children}

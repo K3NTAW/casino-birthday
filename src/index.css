@@ -62,9 +62,11 @@
     border-radius: 9999px;
   }
 
-  /* Respect iOS safe areas (notch / home indicator). */
+  /* Respect iOS safe areas (Dynamic Island / status bar / home indicator).
+     In standalone PWA mode the web view runs full-bleed under the island, so
+     content must be inset by env(safe-area-inset-*) or it slides underneath. */
   .safe-top {
-    padding-top: max(0.5rem, env(safe-area-inset-top));
+    padding-top: max(0.75rem, env(safe-area-inset-top));
   }
   .safe-bottom {
     padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
