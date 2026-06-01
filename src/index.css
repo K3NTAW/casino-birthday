@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-felt-900 text-bone font-body antialiased;
+    /* Subtle deco felt texture: radial vignette + fine gold grid. */
+    background-image:
+      radial-gradient(120% 80% at 50% -10%, rgba(27, 77, 57, 0.55) 0%, rgba(10, 15, 13, 0) 60%),
+      repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.025) 0 2px, transparent 2px 22px);
+    background-attachment: fixed;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-wide;
+  }
+
+  /* Respect iOS safe areas (notch / home indicator). */
+  .safe-top {
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+  }
+  .safe-bottom {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+}
+
+@layer components {
+  .deco-card {
+    @apply rounded-2xl border border-gold-500/20 bg-felt-800/70 shadow-deco backdrop-blur-sm;
+  }
+
+  .deco-divider {
+    background-image: linear-gradient(
+      90deg,
+      transparent,
+      rgba(212, 175, 55, 0.5),
+      transparent
+    );
+    height: 1px;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-base font-semibold
+      transition active:scale-[0.97] disabled:opacity-40 disabled:active:scale-100 select-none;
+    min-height: 52px; /* big tappable targets — people are standing with drinks */
+  }
+  .btn-gold {
+    @apply btn bg-gradient-to-b from-gold-400 to-gold-600 text-felt-900 shadow-gold;
+  }
+  .btn-ghost {
+    @apply btn border border-gold-500/30 bg-felt-700/50 text-bone;
+  }
+  .btn-danger {
+    @apply btn border border-ruby/60 bg-ruby/20 text-bone;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-gold-500/25 bg-felt-900/60 px-4 py-3 text-bone
+      placeholder:text-bone/30 focus:border-gold-500/70 focus:outline-none;
+    min-height: 52px;
+  }
+
+  .chip-amount {
+    @apply font-display tabular-nums;
+  }
+
+  .label {
+    @apply text-xs uppercase tracking-[0.2em] text-gold-300/70;
+  }
+}
