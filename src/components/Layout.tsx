@@ -1,15 +1,26 @@
 import { NavLink, useLocation } from 'react-router-dom'
-import type { ReactNode } from 'react'
+import type { ComponentType } from 'react'
 import { usePlayer } from '@/context/PlayerContext'
 import { useSettings } from '@/lib/queries'
+import {
+  IconCrown,
+  IconDice,
+  IconHome,
+  IconKey,
+  IconReceipt,
+  IconSend,
+  IconShield,
+  IconWine,
+  type IconProps,
+} from '@/components/icons'
 
 interface Tab {
   to: string
   label: string
-  icon: string
+  Icon: ComponentType<IconProps>
 }
 
-export function Layout({ children }: { children: ReactNode }) {
+export function Layout({ children }: { children: React.ReactNode }) {
   const { player, isAdmin } = usePlayer()
   const { data: settings } = useSettings()
   const loc = useLocation()
@@ -18,24 +29,24 @@ export function Layout({ children }: { children: ReactNode }) {
   // The bottom bar adapts to mode — casual players see fewer tabs.
   const tabs: Tab[] = economy
     ? [
-        { to: '/home', label: 'Home', icon: '🏠' },
-        { to: '/games', label: 'Games', icon: '🎲' },
-        { to: '/send', label: 'Send', icon: '➤' },
-        { to: '/activity', label: 'Activity', icon: '🧾' },
-        { to: '/quests', label: 'Quests', icon: '🗝️' },
-        { to: '/shop', label: 'Shop', icon: '🍸' },
+        { to: '/home', label: 'Home', Icon: IconHome },
+        { to: '/games', label: 'Games', Icon: IconDice },
+        { to: '/send', label: 'Send', Icon: IconSend },
+        { to: '/activity', label: 'Activity', Icon: IconReceipt },
+        { to: '/quests', label: 'Quests', Icon: IconKey },
+        { to: '/shop', label: 'Shop', Icon: IconWine },
       ]
     : [
-        { to: '/home', label: 'Home', icon: '🏠' },
-        { to: '/games', label: 'Games', icon: '🎲' },
-        { to: '/shop', label: 'Shop', icon: '🍸' },
+        { to: '/home', label: 'Home', Icon: IconHome },
+        { to: '/games', label: 'Games', Icon: IconDice },
+        { to: '/shop', label: 'Shop', Icon: IconWine },
       ]
 
   if (economy && settings?.leaderboard_visible) {
-    tabs.push({ to: '/leaderboard', label: 'Ranks', icon: '👑' })
+    tabs.push({ to: '/leaderboard', label: 'Ranks', Icon: IconCrown })
   }
   if (isAdmin) {
-    tabs.push({ to: '/admin', label: 'Admin', icon: '⚙️' })
+    tabs.push({ to: '/admin', label: 'Admin', Icon: IconShield })
   }
 
   return (
@@ -74,11 +85,11 @@ export function Layout({ children }: { children: ReactNode }) {
                 />
                 <span
                   className={[
-                    'grid h-7 w-7 place-items-center text-lg leading-none transition-transform duration-300 ease-out-expo',
-                    active ? '-translate-y-0.5 drop-shadow-[0_0_8px_rgba(212,175,55,0.65)]' : '',
+                    'grid h-7 place-items-center transition-transform duration-300 ease-out-expo',
+                    active ? '-translate-y-0.5 drop-shadow-[0_0_7px_rgba(212,175,55,0.6)]' : '',
                   ].join(' ')}
                 >
-                  {t.icon}
+                  <t.Icon className="h-[22px] w-[22px]" strokeWidth={active ? 2 : 1.75} />
                 </span>
                 {t.label}
               </NavLink>

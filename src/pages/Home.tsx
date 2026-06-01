@@ -1,10 +1,22 @@
 import { Link, useNavigate } from 'react-router-dom'
+import type { ComponentType } from 'react'
 import { usePlayer } from '@/context/PlayerContext'
 import { useSettings } from '@/lib/queries'
 import { useActivityFeed } from '@/lib/activity'
 import { Avatar, ChipCount, Pill, SectionTitle } from '@/components/ui'
 import { ActivityList } from '@/components/ActivityList'
 import { PlayerQR } from '@/components/QR'
+import {
+  IconChevronRight,
+  IconCrown,
+  IconDice,
+  IconKey,
+  IconSend,
+  IconSettings,
+  IconShield,
+  IconWine,
+  type IconProps,
+} from '@/components/icons'
 
 export default function Home() {
   const { player, isAdmin } = usePlayer()
@@ -26,8 +38,8 @@ export default function Home() {
             <Pill tone={economy ? 'gold' : 'muted'}>{economy ? 'Economy' : 'Casual'}</Pill>
           </div>
         </div>
-        <Link to="/settings" className="btn-ghost px-3 py-2 text-sm" aria-label="Settings">
-          ⚙︎
+        <Link to="/settings" className="icon-btn" aria-label="Settings">
+          <IconSettings className="h-5 w-5" />
         </Link>
       </header>
 
@@ -53,7 +65,7 @@ export default function Home() {
             )}
             <p className="relative mt-4 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.15em] text-gold-300/80">
               View activity
-              <span className="transition-transform duration-200 ease-out-quart group-hover:translate-x-0.5">→</span>
+              <IconChevronRight className="h-3.5 w-3.5 transition-transform duration-200 ease-out-quart group-hover:translate-x-0.5" />
             </p>
           </Link>
 
@@ -71,14 +83,14 @@ export default function Home() {
 
           {/* Quick actions */}
           <section className="grid grid-cols-2 gap-3">
-            <QuickAction to="/send" emoji="➤" label="Send chips" />
-            <QuickAction to="/games" emoji="🎲" label="Play games" />
-            <QuickAction to="/quests" emoji="🗝️" label="Quests" />
-            <QuickAction to="/shop" emoji="🍸" label="Shop" />
+            <QuickAction to="/send" Icon={IconSend} label="Send chips" />
+            <QuickAction to="/games" Icon={IconDice} label="Play games" />
+            <QuickAction to="/quests" Icon={IconKey} label="Quests" />
+            <QuickAction to="/shop" Icon={IconWine} label="Shop" />
             {settings?.leaderboard_visible && (
-              <QuickAction to="/leaderboard" emoji="👑" label="Leaderboard" />
+              <QuickAction to="/leaderboard" Icon={IconCrown} label="Leaderboard" />
             )}
-            {isAdmin && <QuickAction to="/admin" emoji="⚙️" label="Host panel" />}
+            {isAdmin && <QuickAction to="/admin" Icon={IconShield} label="Host panel" />}
           </section>
 
           {/* Recent activity — who/what your chips came from and went to */}
@@ -86,8 +98,12 @@ export default function Home() {
             <section>
               <SectionTitle
                 right={
-                  <Link to="/activity" className="text-sm font-semibold text-gold-300/80">
-                    See all ›
+                  <Link
+                    to="/activity"
+                    className="inline-flex items-center gap-0.5 text-sm font-semibold text-gold-300/80"
+                  >
+                    See all
+                    <IconChevronRight className="h-3.5 w-3.5" />
                   </Link>
                 }
               >
@@ -109,20 +125,28 @@ export default function Home() {
             </p>
           </section>
           <section className="grid grid-cols-2 gap-3">
-            <QuickAction to="/games" emoji="🎲" label="Play games" />
-            <QuickAction to="/shop" emoji="🍸" label="Free bar" />
+            <QuickAction to="/games" Icon={IconDice} label="Play games" />
+            <QuickAction to="/shop" Icon={IconWine} label="Free bar" />
           </section>
           <button className="btn-ghost w-full" onClick={() => nav('/settings')}>
             Want chips? Switch to Economy →
           </button>
-          {isAdmin && <QuickAction to="/admin" emoji="⚙️" label="Host panel" />}
+          {isAdmin && <QuickAction to="/admin" Icon={IconShield} label="Host panel" />}
         </>
       )}
     </div>
   )
 }
 
-function QuickAction({ to, emoji, label }: { to: string; emoji: string; label: string }) {
+function QuickAction({
+  to,
+  Icon,
+  label,
+}: {
+  to: string
+  Icon: ComponentType<IconProps>
+  label: string
+}) {
   return (
     <Link
       to={to}
@@ -130,17 +154,12 @@ function QuickAction({ to, emoji, label }: { to: string; emoji: string; label: s
     >
       <span
         aria-hidden
-        className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-gold-500/20 bg-felt-700/60 text-xl shadow-rim"
+        className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-gold-500/20 bg-felt-700/60 text-gold-300 shadow-rim"
       >
-        {emoji}
+        <Icon className="h-5 w-5" />
       </span>
       <span className="flex-1 font-semibold text-bone">{label}</span>
-      <span
-        aria-hidden
-        className="text-gold-500/40 transition-transform duration-200 ease-out-quart group-hover:translate-x-0.5"
-      >
-        ›
-      </span>
+      <IconChevronRight className="h-4 w-4 text-gold-500/40 transition-transform duration-200 ease-out-quart group-hover:translate-x-0.5" />
     </Link>
   )
 }

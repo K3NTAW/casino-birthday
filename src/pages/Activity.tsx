@@ -4,6 +4,7 @@ import { usePlayer } from '@/context/PlayerContext'
 import { useActivityFeed } from '@/lib/activity'
 import { ActivityList } from '@/components/ActivityList'
 import { EmptyState, Spinner } from '@/components/ui'
+import { IconBack } from '@/components/icons'
 
 type Filter = 'all' | 'in' | 'out'
 
@@ -31,8 +32,8 @@ export default function Activity() {
   return (
     <div className="space-y-4">
       <header className="flex items-center gap-3 pt-1">
-        <Link to="/home" className="btn-ghost px-3 py-2 text-sm" aria-label="Back to home">
-          ‹
+        <Link to="/home" className="icon-btn" aria-label="Back to home">
+          <IconBack className="h-5 w-5" />
         </Link>
         <div>
           <h1 className="font-display text-2xl text-gold-300">Activity</h1>

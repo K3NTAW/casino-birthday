@@ -8,6 +8,7 @@ import { Avatar, Pill, Spinner, EmptyState } from '@/components/ui'
 import { useConfirm } from '@/components/useConfirm'
 import { useToast, errMessage } from '@/components/Toast'
 import { awardWagerAutoQuests } from '@/lib/autoQuests'
+import { IconBack } from '@/components/icons'
 import { gameLabel } from '@/lib/types'
 
 export default function WagerDetail() {
@@ -183,8 +184,11 @@ export default function WagerDetail() {
 
   return (
     <div className="space-y-5">
-      <button className="text-sm text-bone/70" onClick={() => nav('/games')}>
-        ← Games
+      <button
+        className="inline-flex items-center gap-1 text-sm font-semibold text-bone/70 transition hover:text-gold-300"
+        onClick={() => nav('/games')}
+      >
+        <IconBack className="h-4 w-4" /> Games
       </button>
 
       <header className="deco-card p-5 text-center">
