@@ -26,7 +26,7 @@ export default function Home() {
             <Pill tone={economy ? 'gold' : 'muted'}>{economy ? 'Economy' : 'Casual'}</Pill>
           </div>
         </div>
-        <Link to="/settings" className="btn-ghost px-3 py-2 text-sm">
+        <Link to="/settings" className="btn-ghost px-3 py-2 text-sm" aria-label="Settings">
           ⚙︎
         </Link>
       </header>
@@ -34,30 +34,38 @@ export default function Home() {
       {economy ? (
         <>
           {/* Balance — the hero element. Tap to see where the chips went. */}
-          <Link to="/activity" className="deco-card relative block overflow-hidden p-6 text-center transition active:scale-[0.99]">
-            <div className="pointer-events-none absolute inset-0 animate-shimmer bg-[linear-gradient(110deg,transparent_30%,rgba(212,175,55,0.06)_50%,transparent_70%)] bg-[length:200%_100%]" />
-            <p className="label">Your chips</p>
-            <div className="mt-1 flex items-baseline justify-center gap-2">
-              <span className="text-2xl text-gold-500">◈</span>
-              <ChipCount value={player.balance} className="text-6xl text-gold-300" />
+          <Link
+            to="/activity"
+            className="deco-card-hero group relative block overflow-hidden p-7 text-center transition duration-200 ease-out-quart active:scale-[0.99]"
+          >
+            {/* Slow gold sheen sweeping across the felt. */}
+            <div className="pointer-events-none absolute inset-0 animate-sheen bg-gold-sheen bg-[length:200%_100%]" />
+            <p className="label relative">Your chips</p>
+            <div className="relative mt-3 flex items-center justify-center gap-3">
+              <span aria-hidden className="text-xl text-gold-500/55">◈</span>
+              <ChipCount value={player.balance} className="text-6xl leading-none text-gold-300" />
+              <span aria-hidden className="text-xl text-gold-500/55">◈</span>
             </div>
             {player.parked_balance > 0 && (
-              <p className="mt-2 text-xs text-bone/60">
+              <p className="relative mt-2 text-xs text-bone/60">
                 {player.parked_balance.toLocaleString()} parked (casual mode)
               </p>
             )}
-            <p className="mt-3 text-xs font-semibold tracking-wide text-gold-300/80">View activity →</p>
+            <p className="relative mt-4 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.15em] text-gold-300/80">
+              View activity
+              <span className="transition-transform duration-200 ease-out-quart group-hover:translate-x-0.5">→</span>
+            </p>
           </Link>
 
           {/* QR + player code */}
           <section className="deco-card flex flex-col items-center p-5">
             <p className="label mb-3">Receive chips — show this</p>
             <PlayerQR value={player.id} />
-            <div className="mt-3 text-center">
+            <div className="mt-4 text-center">
               <p className="font-display text-3xl tracking-[0.3em] text-gold-300">
                 {player.player_code}
               </p>
-              <p className="text-xs text-bone/60">your player code</p>
+              <p className="mt-0.5 text-xs text-bone/60">your player code</p>
             </div>
           </section>
 
@@ -92,10 +100,11 @@ export default function Home() {
       ) : (
         <>
           {/* Casual home — no balance, no chrome */}
-          <section className="deco-card p-6 text-center">
-            <div className="text-4xl">🎈</div>
-            <h2 className="mt-2 text-2xl text-gold-300">You're here to play</h2>
-            <p className="mt-1 text-sm text-bone/55">
+          <section className="deco-card-hero relative overflow-hidden p-7 text-center">
+            <div className="pointer-events-none absolute inset-0 animate-sheen bg-gold-sheen bg-[length:200%_100%]" />
+            <div className="relative text-4xl">🎈</div>
+            <h2 className="relative mt-2 text-2xl text-gold-300">You're here to play</h2>
+            <p className="relative mx-auto mt-1 max-w-xs text-sm text-bone/70">
               No chips to track. Jump into a game or grab a drink — it's all on the house.
             </p>
           </section>
@@ -103,15 +112,10 @@ export default function Home() {
             <QuickAction to="/games" emoji="🎲" label="Play games" />
             <QuickAction to="/shop" emoji="🍸" label="Free bar" />
           </section>
-          <button
-            className="btn-ghost w-full"
-            onClick={() => nav('/settings')}
-          >
+          <button className="btn-ghost w-full" onClick={() => nav('/settings')}>
             Want chips? Switch to Economy →
           </button>
-          {isAdmin && (
-            <QuickAction to="/admin" emoji="⚙️" label="Host panel" />
-          )}
+          {isAdmin && <QuickAction to="/admin" emoji="⚙️" label="Host panel" />}
         </>
       )}
     </div>
@@ -122,10 +126,21 @@ function QuickAction({ to, emoji, label }: { to: string; emoji: string; label: s
   return (
     <Link
       to={to}
-      className="deco-card flex items-center gap-3 p-4 transition active:scale-[0.98]"
+      className="deco-card group flex items-center gap-3 p-4 transition duration-200 ease-out-quart hover:border-gold-500/30 active:scale-[0.98]"
     >
-      <span className="text-2xl">{emoji}</span>
-      <span className="font-semibold text-bone">{label}</span>
+      <span
+        aria-hidden
+        className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-gold-500/20 bg-felt-700/60 text-xl shadow-rim"
+      >
+        {emoji}
+      </span>
+      <span className="flex-1 font-semibold text-bone">{label}</span>
+      <span
+        aria-hidden
+        className="text-gold-500/40 transition-transform duration-200 ease-out-quart group-hover:translate-x-0.5"
+      >
+        ›
+      </span>
     </Link>
   )
 }

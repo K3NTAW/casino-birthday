@@ -29,17 +29,19 @@ export default function Login() {
   }
 
   return (
-    <div className="mx-auto flex min-h-full max-w-md flex-col justify-center px-5 py-10 safe-top safe-bottom">
-      <header className="mb-7 text-center">
-        <div className="mb-2 text-5xl">♠️</div>
-        <h1 className="text-4xl text-gold-300">Casino Night</h1>
-        <p className="mt-1 text-sm tracking-[0.3em] text-gold-500/80">EST. TONIGHT</p>
-        <p className="mt-4 inline-block rounded-full border border-gold-500/30 bg-felt-800/60 px-4 py-1.5 text-xs text-bone/80">
+    <div className="mx-auto flex min-h-full max-w-md flex-col justify-center px-5 py-10 safe-top safe-bottom stagger">
+      <header className="mb-8 text-center">
+        <div className="mb-2 text-5xl drop-shadow-[0_0_18px_rgba(212,175,55,0.4)]">♠️</div>
+        <h1 className="font-display text-5xl leading-none text-gold-300">Casino Night</h1>
+        <div className="deco-rule mx-auto mt-3 max-w-[14rem]">
+          <span className="text-[11px] uppercase tracking-[0.35em]">Est. Tonight</span>
+        </div>
+        <p className="mt-5 inline-block rounded-full border border-gold-500/30 bg-felt-800/60 px-4 py-1.5 text-xs text-bone/80 shadow-rim">
           🎉 Pretend chips only — no real money, no real value
         </p>
       </header>
 
-      <div className="deco-card p-5">
+      <div className="deco-card-hero p-5">
         <label className="label">Your name</label>
         <input
           className="input mt-1.5"
@@ -154,7 +156,7 @@ function ModeOption({
           </span>
           {selected && <span className="ml-auto text-gold-400">✓</span>}
         </div>
-        <p className="text-sm leading-snug text-bone/55">{line}</p>
+        <p className="text-sm leading-snug text-bone/70">{line}</p>
       </div>
     </button>
   )
