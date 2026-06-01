@@ -54,7 +54,7 @@ export function Layout({ children }: { children: ReactNode }) {
                 to={t.to}
                 className={[
                   'flex flex-col items-center gap-0.5 py-2.5 text-[11px] font-semibold tracking-wide transition',
-                  active ? 'text-gold-300' : 'text-bone/45',
+                  active ? 'text-gold-300' : 'text-bone/60',
                 ].join(' ')}
               >
                 <span className={`text-lg leading-none ${active ? 'drop-shadow-[0_0_6px_rgba(212,175,55,0.6)]' : ''}`}>

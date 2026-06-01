@@ -9,6 +9,7 @@ import Games from './pages/Games'
 import WagerDetail from './pages/WagerDetail'
 import SessionDetail from './pages/SessionDetail'
 import Send from './pages/Send'
+import Activity from './pages/Activity'
 import Quests from './pages/Quests'
 import Shop from './pages/Shop'
 import Leaderboard from './pages/Leaderboard'
@@ -48,6 +49,7 @@ export default function App() {
 
         {/* Economy-only routes */}
         <Route path="/send" element={<EconomyOnly><Send /></EconomyOnly>} />
+        <Route path="/activity" element={<EconomyOnly><Activity /></EconomyOnly>} />
         <Route path="/quests" element={<EconomyOnly><Quests /></EconomyOnly>} />
 
         {/* Conditionally-enabled / role-gated */}

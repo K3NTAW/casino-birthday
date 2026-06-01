@@ -50,7 +50,7 @@ export default function Games() {
     <div className="space-y-6">
       <header className="pt-1">
         <h1 className="text-3xl text-gold-300">Games</h1>
-        <p className="text-sm text-bone/50">
+        <p className="text-sm text-bone/70">
           {economy ? 'Bet chips or just play for fun.' : 'Jump into any game — no chips needed.'}
         </p>
       </header>
@@ -67,7 +67,7 @@ export default function Games() {
             >
               <span className="text-3xl">{g.emoji}</span>
               <span className="font-semibold text-bone">{g.label}</span>
-              <span className="text-xs text-bone/40">Create wager →</span>
+              <span className="text-xs text-bone/60">Create wager →</span>
             </button>
           ))}
         </div>
@@ -88,7 +88,7 @@ export default function Games() {
                   Open table
                 </button>
               ) : (
-                <span className="text-xs text-bone/40">Wait for a host</span>
+                <span className="text-xs text-bone/60">Wait for a host</span>
               )}
             </div>
           ))}
@@ -111,7 +111,7 @@ export default function Games() {
                 </span>
                 <div className="flex-1">
                   <p className="font-semibold text-bone">{gameLabel(s.game_type)}</p>
-                  <p className="text-xs text-bone/45">
+                  <p className="text-xs text-bone/60">
                     Buy-in {s.buyin} · pot {s.pot_total} · hand #{s.current_hand_no}
                   </p>
                 </div>
@@ -160,7 +160,7 @@ function WagerRow({ wager, creatorName, onOpen }: { wager: Wager; creatorName: s
       <span className="text-2xl">{SELF_GAMES.find((g) => g.key === wager.game_type)?.emoji ?? '🎯'}</span>
       <div className="flex-1">
         <p className="font-semibold text-bone">{gameLabel(wager.game_type)}</p>
-        <p className="text-xs text-bone/45">
+        <p className="text-xs text-bone/60">
           by {creatorName} · stake {wager.stake_per_player} · pot {wager.pot_total}
         </p>
       </div>
@@ -233,7 +233,7 @@ function CreateWagerSheet({
         )}
 
         <label className="label mt-4 block">Invite opponents (optional)</label>
-        <p className="mb-2 text-xs text-bone/40">
+        <p className="mb-2 text-xs text-bone/60">
           Or leave empty and let people tap “Join”. Casual players join for fun.
         </p>
         <div className="max-h-44 space-y-2 overflow-y-auto">
@@ -262,7 +262,7 @@ function CreateWagerSheet({
           </button>
         </div>
         {economy && (
-          <p className="mt-2 text-center text-xs text-bone/40">
+          <p className="mt-2 text-center text-xs text-bone/60">
             Your stake is escrowed now and refunded if the wager is cancelled.
           </p>
         )}

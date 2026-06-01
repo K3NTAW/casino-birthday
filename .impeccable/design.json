@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-01T00:00:00Z",
+  "title": "Design System: Casino Night",
+  "extensions": {
+    "colorMeta": {
+      "gold-500": { "role": "primary", "displayName": "Casino Gold", "canonical": "#d4af37", "tonalRamp": ["#2b2007", "#4a3810", "#6b521a", "#8c6d24", "#b8941f", "#d4af37", "#e6c75b", "#f2dd8c"] },
+      "bone": { "role": "neutral", "displayName": "Bone", "canonical": "#f4efe1", "tonalRamp": ["#2a2823", "#454138", "#615c50", "#847e6e", "#a9a392", "#cdc7b6", "#e3ddcd", "#f4efe1"] },
+      "felt-900": { "role": "neutral", "displayName": "Midnight Felt", "canonical": "#0a0f0d", "tonalRamp": ["#0a0f0d", "#0b1f17", "#0f2a1f", "#143b2c", "#1b4d39", "#246b50", "#2f8a67", "#3aa97e"] },
+      "jade": { "role": "secondary", "displayName": "Jade Win", "canonical": "#2a9d6f", "tonalRamp": ["#0a2c1f", "#0f4631", "#156044", "#1c7a57", "#2a9d6f", "#3fb88a", "#6bcda6", "#9adcc3"] },
+      "ruby": { "role": "secondary", "displayName": "Ruby Loss", "canonical": "#9b2226", "tonalRamp": ["#2c0a0c", "#460f12", "#601519", "#7a1c20", "#9b2226", "#c23a3f", "#d6696d", "#e89a9d"] }
+    },
+    "typographyMeta": {
+      "hero-balance": { "displayName": "Hero Balance", "purpose": "The single biggest number on Home — the player's chip stack. Animated by ChipCount." },
+      "display": { "displayName": "Display", "purpose": "Page-level Cormorant headings and celebratory moments." },
+      "title": { "displayName": "Title", "purpose": "Section titles inside a view (gold-300)." },
+      "body": { "displayName": "Body", "purpose": "All readable copy, set in Jost." },
+      "label": { "displayName": "Label", "purpose": "Uppercase tracked eyebrow labels, ≤4 words, gold-300 at ~70%." }
+    },
+    "shadows": [
+      { "name": "deco-float", "value": "0 10px 40px -12px rgba(0,0,0,0.7)", "purpose": "Ambient lift under deco-card surfaces — diffuse and dark, floats a card off the felt." },
+      { "name": "gold-glow", "value": "0 0 0 1px rgba(212,175,55,0.35), 0 8px 30px -8px rgba(212,175,55,0.25)", "purpose": "Warm halo on the primary gold button and active accents — lit from within." }
+    ],
+    "motion": [
+      { "name": "chip-pop", "value": "chip-pop 0.35s ease-out", "purpose": "Scale bounce-in when a new chip stack lands (0.6 → 1.08 → 1)." },
+      { "name": "count-flash", "value": "count-flash 0.8s ease-out", "purpose": "Champagne-gold to bone flash when the balance rises — the feel of a win." },
+      { "name": "press", "value": "active:scale(0.97)", "purpose": "Tactile press feedback on every button (touch, not hover)." }
+    ],
+    "breakpoints": [
+      { "name": "app-column", "value": "28rem (max-w-md, single mobile column, centered)" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Gold Button (primary)",
+      "kind": "button",
+      "refersTo": "button-gold",
+      "description": "The one 'do this' action per screen — gold gradient, near-black text, warm glow.",
+      "html": "<button class=\"ds-btn-gold\">Send 50 chips</button>",
+      "css": ".ds-btn-gold { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 52px; padding: 0.75rem 1.25rem; border: none; border-radius: 0.75rem; font-family: Jost, system-ui, sans-serif; font-size: 1rem; font-weight: 600; color: #0a0f0d; background: linear-gradient(to bottom, #e6c75b, #b8941f); box-shadow: 0 0 0 1px rgba(212,175,55,0.35), 0 8px 30px -8px rgba(212,175,55,0.25); cursor: pointer; user-select: none; transition: transform 0.15s ease-out, filter 0.15s ease-out; } .ds-btn-gold:hover { filter: brightness(1.05); } .ds-btn-gold:active { transform: scale(0.97); } .ds-btn-gold:focus-visible { outline: 2px solid #f2dd8c; outline-offset: 2px; }"
+    },
+    {
+      "name": "Ghost Button (secondary)",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "The default for everything that isn't the hero action — felt fill, thin gold border.",
+      "html": "<button class=\"ds-btn-ghost\">Cancel</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 52px; padding: 0.75rem 1.25rem; border: 1px solid rgba(212,175,55,0.30); border-radius: 0.75rem; font-family: Jost, system-ui, sans-serif; font-size: 1rem; font-weight: 600; color: #f4efe1; background: rgba(15,42,31,0.5); cursor: pointer; user-select: none; transition: transform 0.15s ease-out, border-color 0.15s ease-out; } .ds-btn-ghost:hover { border-color: rgba(212,175,55,0.6); } .ds-btn-ghost:active { transform: scale(0.97); } .ds-btn-ghost:focus-visible { outline: 2px solid #f2dd8c; outline-offset: 2px; }"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Destructive or loss-confirming actions only — translucent ruby.",
+      "html": "<button class=\"ds-btn-danger\">Reset everything</button>",
+      "css": ".ds-btn-danger { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 52px; padding: 0.75rem 1.25rem; border: 1px solid rgba(155,34,38,0.6); border-radius: 0.75rem; font-family: Jost, system-ui, sans-serif; font-size: 1rem; font-weight: 600; color: #f4efe1; background: rgba(155,34,38,0.2); cursor: pointer; user-select: none; transition: transform 0.15s ease-out, background 0.15s ease-out; } .ds-btn-danger:hover { background: rgba(155,34,38,0.32); } .ds-btn-danger:active { transform: scale(0.97); } .ds-btn-danger:focus-visible { outline: 2px solid #f4efe1; outline-offset: 2px; }"
+    },
+    {
+      "name": "Input Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Dark felt fill, thin gold border that brightens on focus, 52px tall.",
+      "html": "<input class=\"ds-input\" placeholder=\"Player code\" />",
+      "css": ".ds-input { width: 100%; min-height: 52px; padding: 0.75rem 1rem; border: 1px solid rgba(212,175,55,0.25); border-radius: 0.75rem; background: rgba(10,15,13,0.6); color: #f4efe1; font-family: Jost, system-ui, sans-serif; font-size: 1rem; } .ds-input::placeholder { color: rgba(244,239,225,0.3); } .ds-input:focus { outline: none; border-color: rgba(212,175,55,0.7); }"
+    },
+    {
+      "name": "Deco Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "The house container — felt-800 at 70% with backdrop blur, gold hairline, soft float. Never nested.",
+      "html": "<div class=\"ds-deco-card\"><p class=\"ds-card-label\">Tonight's pot</p><p class=\"ds-card-value\">1,250</p></div>",
+      "css": ".ds-deco-card { border-radius: 1.5rem; border: 1px solid rgba(212,175,55,0.20); background: rgba(11,31,23,0.7); box-shadow: 0 10px 40px -12px rgba(0,0,0,0.7); backdrop-filter: blur(4px); padding: 1rem; } .ds-card-label { margin: 0 0 0.25rem; font-family: Jost, system-ui, sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(242,221,140,0.7); } .ds-card-value { margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 2.5rem; font-weight: 600; line-height: 1; color: #f2dd8c; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Pill",
+      "kind": "chip",
+      "refersTo": "pill",
+      "description": "Small bordered tag in four semantic tones — gold (default), jade (win), ruby (loss), muted.",
+      "html": "<span class=\"ds-pill ds-pill-jade\">Won +200</span>",
+      "css": ".ds-pill { display: inline-flex; align-items: center; padding: 0.125rem 0.625rem; border: 1px solid; border-radius: 9999px; font-family: Jost, system-ui, sans-serif; font-size: 0.75rem; font-weight: 600; } .ds-pill-gold { border-color: rgba(212,175,55,0.4); color: #f2dd8c; } .ds-pill-jade { border-color: rgba(42,157,111,0.5); color: #2a9d6f; } .ds-pill-ruby { border-color: rgba(155,34,38,0.6); color: #c23a3f; } .ds-pill-muted { border-color: rgba(244,239,225,0.2); color: rgba(244,239,225,0.6); }"
+    },
+    {
+      "name": "Chip Count (signature)",
+      "kind": "custom",
+      "refersTo": "hero-balance",
+      "description": "The soul of the app — a large tabular Cormorant number that animates and flashes gold on a win.",
+      "html": "<span class=\"ds-chip-count\">12,400</span>",
+      "css": ".ds-chip-count { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 3.75rem; font-weight: 600; line-height: 1; color: #f2dd8c; font-variant-numeric: tabular-nums; animation: ds-count-flash 0.8s ease-out; } @keyframes ds-count-flash { 0% { color: #f2dd8c; } 100% { color: #f4efe1; } } @media (prefers-reduced-motion: reduce) { .ds-chip-count { animation: none; } }"
+    },
+    {
+      "name": "Bottom Tab Nav",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "The only navigation — fixed bottom bar, emoji icon over tracked label, gold-glow active tab.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-item ds-nav-active\"><span class=\"ds-nav-ico\">🏠</span>Home</a><a class=\"ds-nav-item\"><span class=\"ds-nav-ico\">🎲</span>Games</a><a class=\"ds-nav-item\"><span class=\"ds-nav-ico\">➤</span>Send</a><a class=\"ds-nav-item\"><span class=\"ds-nav-ico\">🍸</span>Shop</a></nav>",
+      "css": ".ds-nav { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; border-top: 1px solid rgba(212,175,55,0.2); background: rgba(10,15,13,0.95); backdrop-filter: blur(8px); } .ds-nav-item { display: flex; flex-direction: column; align-items: center; gap: 0.125rem; padding: 0.625rem 0; font-family: Jost, system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.03em; color: rgba(244,239,225,0.45); text-decoration: none; cursor: pointer; } .ds-nav-ico { font-size: 1.125rem; line-height: 1; } .ds-nav-active { color: #f2dd8c; } .ds-nav-active .ds-nav-ico { filter: drop-shadow(0 0 6px rgba(212,175,55,0.6)); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Velvet Game Night",
+    "overview": "A grown-up birthday game night dressed in Art Deco finery: green felt, candlelight, a glass of bubbly, and friends who all feel like high-roller regulars for one evening. The chips are the toy; the party is the point. Celebratory and social first, with just enough hushed-club glamour (gold leaf on deep felt) to make a tap feel like a small thrill. Built for a specific body — someone standing in a dim, noisy room, holding a drink, glancing for two seconds — so the glamour rides on real discipline: balance and primary action readable at arm's length, 52px tap targets, and a restate-before-it-happens confirm on every chip move. It rejects Vegas (neon, slot flash, jackpot gradients), the generic SaaS dashboard, and anything that smells of real-money gambling.",
+    "keyCharacteristics": [
+      "Deep felt-green canvas, near-black, with a single warm gold as the star accent",
+      "A serif display voice (Cormorant Garamond) over a clean geometric sans body (Jost)",
+      "Tactile, oversized buttons (52px+) tuned for standing, distracted, one-handed use",
+      "Chips animate: a gold count-flash on a win, a soft pop when a stack lands",
+      "Mobile-only, single-column, bottom-tab navigation — never pretends to be a desktop app"
+    ],
+    "rules": [
+      { "name": "The Gold-Is-Earned Rule", "body": "Gold is the most expensive ink in the building. Spend it on value and action: the balance, the primary CTA, the active tab, a thin border or divider. Two solid-gold buttons on one screen and gold stops meaning anything. One gold decision per view.", "section": "colors" },
+      { "name": "The Win/Loss-Only Rule", "body": "Jade and ruby are forbidden as decoration or theme color. They are semantic signals for chips gained and chips lost. If a jade element doesn't mean a win and a ruby element doesn't mean a loss or danger, it's the wrong color.", "section": "colors" },
+      { "name": "The Serif-Is-For-Show Rule", "body": "Cormorant is for numbers, headings, and celebration. Jost is for everything a guest has to read and act on. Body copy, buttons, and form values are never set in the serif.", "section": "typography" },
+      { "name": "The Readable-Bone Rule", "body": "Primary text is full-strength Bone (#f4efe1), never a faded tint. Bone at ≤50% opacity is for genuinely secondary metadata only, never for anything a standing guest in a dim room needs to read.", "section": "typography" },
+      { "name": "The Candlelight Rule", "body": "Shadows are warm and soft, never hard and gray. If an element looks like it has a crisp gray 2014-Material box-shadow, deepen and diffuse it, or replace it with a felt tonal step and a gold hairline border.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep the balance and the one primary action the two loudest things on every screen — readable at arm's length in a dim room.",
+      "Do spend gold sparingly: one gold CTA per view, gold elsewhere only as thin borders, dividers, the balance, and the active tab.",
+      "Do set headings, numbers, and celebratory moments in Cormorant; set everything readable in Jost.",
+      "Do keep primary text full-strength Bone (#f4efe1) and verify AA contrast on felt; reserve faded bone (≤50%) for true secondary metadata only.",
+      "Do keep tap targets ≥52px and confirm-restate every chip move ('Send 50 chips to Anna?') before it happens.",
+      "Do use jade strictly for wins and ruby strictly for losses/danger, always paired with a label, sign, or icon.",
+      "Do give the chip counter room to animate; let a win flash gold and a stack pop.",
+      "Do honor prefers-reduced-motion with a calm crossfade or instant fallback for chip-pop, count-flash, and shimmer."
+    ],
+    "donts": [
+      "Don't go Vegas neon or gaudy: no glowing neon, no slot-machine flash, no jackpot gradients, no cheap chip clip-art.",
+      "Don't let this read as a generic SaaS dashboard — no flat gray cards, no system-font admin tables, no soulless white panels.",
+      "Don't borrow real-money-gambling tropes: no FOMO mechanics, no aggressive green-number dopamine UI.",
+      "Don't nest a card inside a card; separate content with a felt tonal step or a deco-divider.",
+      "Don't put two solid-gold buttons on one screen — gold stops meaning anything when it competes with itself.",
+      "Don't set body copy, button labels, or form values in Cormorant; the serif is for show, not for reading.",
+      "Don't rely on hard, gray, 2014-Material box-shadows; shadows here are warm, soft, and candle-lit.",
+      "Don't design for desktop. This is a centered 28rem mobile column with a bottom tab bar; never stretch it wide or add a sidebar."
+    ]
+  }
+}

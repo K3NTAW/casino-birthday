@@ -77,7 +77,7 @@ export default function Send() {
     <div className="space-y-5">
       <header className="pt-1">
         <h1 className="text-3xl text-gold-300">Send chips</h1>
-        <p className="text-sm text-bone/50">
+        <p className="text-sm text-bone/70">
           You have <ChipCount value={player.balance} className="text-gold-300" /> chips.
         </p>
       </header>
@@ -99,7 +99,7 @@ export default function Send() {
                 Find
               </button>
             </div>
-            <p className="mt-2 text-xs text-bone/40">
+            <p className="mt-2 text-xs text-bone/60">
               Ask them to read their 4-character code from their Home screen.
             </p>
           </section>
@@ -143,7 +143,7 @@ export default function Send() {
                   >
                     <Avatar emoji={p.avatar} size="sm" />
                     <span className="flex-1 font-semibold text-bone">{p.display_name}</span>
-                    <span className="text-xs tracking-widest text-bone/40">{p.player_code}</span>
+                    <span className="text-xs tracking-widest text-bone/60">{p.player_code}</span>
                   </button>
                 ))}
               </div>
@@ -156,9 +156,9 @@ export default function Send() {
             <Avatar emoji={recipient.avatar} />
             <div className="flex-1">
               <p className="font-display text-lg text-bone">{recipient.display_name}</p>
-              <p className="text-xs tracking-widest text-bone/40">{recipient.player_code}</p>
+              <p className="text-xs tracking-widest text-bone/60">{recipient.player_code}</p>
             </div>
-            <button className="text-sm text-bone/40 underline" onClick={() => setRecipient(null)}>
+            <button className="text-sm text-bone/60 underline" onClick={() => setRecipient(null)}>
               change
             </button>
           </div>

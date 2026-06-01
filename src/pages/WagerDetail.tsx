@@ -183,7 +183,7 @@ export default function WagerDetail() {
 
   return (
     <div className="space-y-5">
-      <button className="text-sm text-bone/50" onClick={() => nav('/games')}>
+      <button className="text-sm text-bone/70" onClick={() => nav('/games')}>
         ← Games
       </button>
 
@@ -197,7 +197,7 @@ export default function WagerDetail() {
           <Pill tone={w.state === 'disputed' ? 'ruby' : w.state === 'settled' ? 'jade' : 'gold'}>
             {w.state}
           </Pill>
-          <span className="text-sm text-bone/50">
+          <span className="text-sm text-bone/70">
             stake {w.stake_per_player} · pot {w.pot_total}
           </span>
         </div>

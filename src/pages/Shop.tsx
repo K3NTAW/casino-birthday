@@ -56,7 +56,7 @@ export default function Shop() {
       <header className="flex items-end justify-between pt-1">
         <div>
           <h1 className="text-3xl text-gold-300">The Bar</h1>
-          <p className="text-sm text-bone/50">
+          <p className="text-sm text-bone/70">
             {economy ? 'Spend chips on drinks & snacks.' : 'Everything is free — just ask.'}
           </p>
         </div>
@@ -86,7 +86,7 @@ export default function Shop() {
         ))}
       </div>
 
-      <p className="px-4 text-center text-xs text-bone/40">
+      <p className="px-4 text-center text-xs text-bone/60">
         Drinks are real and free either way — chips are just the in-game cost for economy players.
       </p>
 

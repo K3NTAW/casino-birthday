@@ -26,6 +26,11 @@ export function ChipCount({ value, className = '' }: { value: number; className?
     const from = prev.current
     prev.current = value
     if (from === value) return
+    // Honor reduced-motion: land on the value instantly, skip the count-up tween.
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      setDisplay(value)
+      return
+    }
     const start = performance.now()
     const dur = 500
     let raf = 0
@@ -60,7 +65,7 @@ export function EmptyState({ emoji, title, sub }: { emoji: string; title: string
     <div className="flex flex-col items-center gap-2 py-12 text-center">
       <div className="text-4xl opacity-70">{emoji}</div>
       <p className="text-lg text-bone/80">{title}</p>
-      {sub && <p className="max-w-xs text-sm text-bone/50">{sub}</p>}
+      {sub && <p className="max-w-xs text-sm text-bone/70">{sub}</p>}
     </div>
   )
 }

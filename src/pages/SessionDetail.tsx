@@ -183,7 +183,7 @@ export default function SessionDetail() {
 
   return (
     <div className="space-y-5">
-      <button className="text-sm text-bone/50" onClick={() => nav('/games')}>
+      <button className="text-sm text-bone/70" onClick={() => nav('/games')}>
         ← Games
       </button>
 
@@ -192,7 +192,7 @@ export default function SessionDetail() {
         <h1 className="text-2xl text-gold-300">{gameLabel(s.game_type)}</h1>
         <div className="mt-1 flex items-center justify-center gap-2">
           <Pill tone={s.state === 'active' ? 'jade' : s.state === 'open' ? 'gold' : 'muted'}>{s.state}</Pill>
-          <span className="text-sm text-bone/50">hand #{s.current_hand_no}</span>
+          <span className="text-sm text-bone/70">hand #{s.current_hand_no}</span>
         </div>
         <div className="mt-4">
           <p className="label">Pot</p>
@@ -201,7 +201,7 @@ export default function SessionDetail() {
         {mySeat && (
           <p className="mt-3 text-sm text-bone/60">
             Your stack: <ChipCount value={mySeat.table_stack} className="text-gold-300" />
-            {mySeat.is_casual && <span className="ml-1 text-xs text-bone/40">(table-only)</span>}
+            {mySeat.is_casual && <span className="ml-1 text-xs text-bone/60">(table-only)</span>}
           </p>
         )}
       </header>
@@ -246,7 +246,7 @@ export default function SessionDetail() {
         </section>
       )}
       {mySeat && s.state === 'open' && (
-        <p className="text-center text-sm text-bone/50">Seated — waiting for the host to start the hand.</p>
+        <p className="text-center text-sm text-bone/70">Seated — waiting for the host to start the hand.</p>
       )}
 
       {/* Seats */}
@@ -260,7 +260,7 @@ export default function SessionDetail() {
                 <Avatar emoji={info?.avatar ?? '🎲'} size="sm" />
                 <span className="flex-1 font-semibold text-bone">
                   {info?.display_name ?? '—'}
-                  {seat.is_casual && <span className="ml-1 text-xs text-bone/40">casual</span>}
+                  {seat.is_casual && <span className="ml-1 text-xs text-bone/60">casual</span>}
                 </span>
                 <span className="font-display text-gold-300">{seat.table_stack}</span>
                 {isAdmin && s.state === 'active' && s.pot_total > 0 && (
@@ -271,20 +271,20 @@ export default function SessionDetail() {
               </div>
             )
           })}
-          {seats.length === 0 && <p className="text-sm text-bone/50">No players seated yet.</p>}
+          {seats.length === 0 && <p className="text-sm text-bone/70">No players seated yet.</p>}
         </div>
       </section>
 
       {/* Live action feed — the realtime requirement */}
       <section className="deco-card p-5">
-        <SectionTitle right={<span className="text-xs text-bone/40">live</span>}>Action feed</SectionTitle>
+        <SectionTitle right={<span className="text-xs text-bone/60">live</span>}>Action feed</SectionTitle>
         <div className="space-y-1.5">
-          {actions.length === 0 && <p className="text-sm text-bone/50">No actions yet.</p>}
+          {actions.length === 0 && <p className="text-sm text-bone/70">No actions yet.</p>}
           {actions.map((a) => {
             const info = nameOf(a.player_id)
             return (
               <div key={a.id} className="flex items-center gap-2 text-sm">
-                <span className="text-bone/40">#{a.hand_no}</span>
+                <span className="text-bone/60">#{a.hand_no}</span>
                 <span className="font-semibold text-bone">{info?.display_name ?? '—'}</span>
                 <span
                   className={
@@ -318,7 +318,7 @@ export default function SessionDetail() {
               Close table
             </button>
           </div>
-          <p className="text-xs text-bone/40">
+          <p className="text-xs text-bone/60">
             Tap “win pot” next to a player to award the pot to them. Default buy-in is{' '}
             {settings?.default_buyin ?? 200}.
           </p>

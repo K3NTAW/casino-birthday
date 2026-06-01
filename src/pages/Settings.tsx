@@ -125,7 +125,7 @@ export default function Settings() {
         Log out of this device
       </button>
 
-      <p className="px-4 text-center text-xs text-bone/40">
+      <p className="px-4 text-center text-xs text-bone/60">
         Chips have no real-world value. This is a party game.
       </p>
 

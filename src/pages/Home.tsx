@@ -1,12 +1,15 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { usePlayer } from '@/context/PlayerContext'
 import { useSettings } from '@/lib/queries'
-import { Avatar, ChipCount, Pill } from '@/components/ui'
+import { useActivityFeed } from '@/lib/activity'
+import { Avatar, ChipCount, Pill, SectionTitle } from '@/components/ui'
+import { ActivityList } from '@/components/ActivityList'
 import { PlayerQR } from '@/components/QR'
 
 export default function Home() {
   const { player, isAdmin } = usePlayer()
   const { data: settings } = useSettings()
+  const { rows } = useActivityFeed(player?.id ?? '')
   const nav = useNavigate()
   if (!player) return null
 
@@ -30,8 +33,8 @@ export default function Home() {
 
       {economy ? (
         <>
-          {/* Balance — the hero element */}
-          <section className="deco-card relative overflow-hidden p-6 text-center">
+          {/* Balance — the hero element. Tap to see where the chips went. */}
+          <Link to="/activity" className="deco-card relative block overflow-hidden p-6 text-center transition active:scale-[0.99]">
             <div className="pointer-events-none absolute inset-0 animate-shimmer bg-[linear-gradient(110deg,transparent_30%,rgba(212,175,55,0.06)_50%,transparent_70%)] bg-[length:200%_100%]" />
             <p className="label">Your chips</p>
             <div className="mt-1 flex items-baseline justify-center gap-2">
@@ -39,11 +42,12 @@ export default function Home() {
               <ChipCount value={player.balance} className="text-6xl text-gold-300" />
             </div>
             {player.parked_balance > 0 && (
-              <p className="mt-2 text-xs text-bone/40">
+              <p className="mt-2 text-xs text-bone/60">
                 {player.parked_balance.toLocaleString()} parked (casual mode)
               </p>
             )}
-          </section>
+            <p className="mt-3 text-xs font-semibold tracking-wide text-gold-300/80">View activity →</p>
+          </Link>
 
           {/* QR + player code */}
           <section className="deco-card flex flex-col items-center p-5">
@@ -53,7 +57,7 @@ export default function Home() {
               <p className="font-display text-3xl tracking-[0.3em] text-gold-300">
                 {player.player_code}
               </p>
-              <p className="text-xs text-bone/40">your player code</p>
+              <p className="text-xs text-bone/60">your player code</p>
             </div>
           </section>
 
@@ -68,6 +72,22 @@ export default function Home() {
             )}
             {isAdmin && <QuickAction to="/admin" emoji="⚙️" label="Host panel" />}
           </section>
+
+          {/* Recent activity — who/what your chips came from and went to */}
+          {rows.length > 0 && (
+            <section>
+              <SectionTitle
+                right={
+                  <Link to="/activity" className="text-sm font-semibold text-gold-300/80">
+                    See all ›
+                  </Link>
+                }
+              >
+                Recent activity
+              </SectionTitle>
+              <ActivityList rows={rows.slice(0, 4)} />
+            </section>
+          )}
         </>
       ) : (
         <>

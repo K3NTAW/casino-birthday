@@ -25,7 +25,7 @@ export default function Leaderboard() {
     <div className="space-y-5">
       <header className="pt-1 text-center">
         <h1 className="text-3xl text-gold-300">Leaderboard</h1>
-        <p className="text-sm text-bone/50">Economy players, richest first. Updates live.</p>
+        <p className="text-sm text-bone/70">Economy players, richest first. Updates live.</p>
       </header>
 
       <div className="space-y-2">
@@ -49,7 +49,7 @@ export default function Leaderboard() {
           )
         })}
         {ranked.length === 0 && (
-          <p className="py-12 text-center text-bone/50">No economy players yet.</p>
+          <p className="py-12 text-center text-bone/70">No economy players yet.</p>
         )}
       </div>
     </div>

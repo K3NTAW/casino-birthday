@@ -48,7 +48,7 @@ export default function Quests() {
     <div className="space-y-6">
       <header className="pt-1">
         <h1 className="text-3xl text-gold-300">Quests</h1>
-        <p className="text-sm text-bone/50">
+        <p className="text-sm text-bone/70">
           Out of chips? Earn your way back in. Honor system — claim what you've done.
         </p>
       </header>
@@ -109,7 +109,7 @@ function QuestCard({
     <div className={`deco-card flex items-center gap-3 p-4 ${done ? 'opacity-60' : ''}`}>
       <div className="flex-1">
         <p className="font-semibold text-bone">{quest.title}</p>
-        <p className="text-sm text-bone/50">{quest.description}</p>
+        <p className="text-sm text-bone/70">{quest.description}</p>
         <p className="mt-1 font-display text-gold-300">+{quest.reward} chips</p>
       </div>
       <div className="shrink-0">{children}</div>

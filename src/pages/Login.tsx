@@ -33,7 +33,7 @@ export default function Login() {
       <header className="mb-7 text-center">
         <div className="mb-2 text-5xl">♠️</div>
         <h1 className="text-4xl text-gold-300">Casino Night</h1>
-        <p className="mt-1 text-sm tracking-[0.3em] text-gold-500/60">EST. TONIGHT</p>
+        <p className="mt-1 text-sm tracking-[0.3em] text-gold-500/80">EST. TONIGHT</p>
         <p className="mt-4 inline-block rounded-full border border-gold-500/30 bg-felt-800/60 px-4 py-1.5 text-xs text-bone/80">
           🎉 Pretend chips only — no real money, no real value
         </p>
@@ -107,14 +107,14 @@ export default function Login() {
               value={adminCode}
               onChange={(e) => setAdminCode(e.target.value)}
             />
-            <p className="mt-1.5 text-xs text-bone/40">
+            <p className="mt-1.5 text-xs text-bone/60">
               Turns this device into a host (run tables, fulfil drinks, grant chips).
             </p>
           </div>
         )}
       </div>
 
-      <p className="mt-6 px-4 text-center text-xs leading-relaxed text-bone/40">
+      <p className="mt-6 px-4 text-center text-xs leading-relaxed text-bone/60">
         Chips are just for fun tonight — no real money, no real value. You can switch between
         Economy and Casual anytime from settings.
       </p>

@@ -67,7 +67,7 @@ export default function Admin() {
     <div className="space-y-6 pb-4">
       <header className="pt-1">
         <h1 className="text-3xl text-gold-300">Host panel</h1>
-        <p className="text-sm text-bone/50">Run the night. Quests are honor-system — no approvals here.</p>
+        <p className="text-sm text-bone/70">Run the night. Quests are honor-system — no approvals here.</p>
       </header>
 
       {/* 1. Fulfilment queue */}
@@ -76,7 +76,7 @@ export default function Admin() {
           Bar tickets
         </SectionTitle>
         <div className="space-y-2">
-          {pending.length === 0 && <p className="text-sm text-bone/50">All caught up. 🍸</p>}
+          {pending.length === 0 && <p className="text-sm text-bone/70">All caught up. 🍸</p>}
           {pending.map((o) => {
             const it = itemName.get(o.item_id)
             const who = playerName.get(o.player_id)
@@ -85,7 +85,7 @@ export default function Admin() {
                 <span className="text-2xl">{it?.emoji ?? '🍸'}</span>
                 <div className="flex-1">
                   <p className="font-semibold text-bone">{it?.name ?? 'Item'}</p>
-                  <p className="text-xs text-bone/45">
+                  <p className="text-xs text-bone/60">
                     for {who?.display_name ?? '—'} · {o.is_free ? 'free (casual)' : `${it?.price ?? 0} chips`}
                   </p>
                 </div>
@@ -163,10 +163,10 @@ export default function Admin() {
                 {t.amount}
               </span>
               <span className="text-bone/70">{playerName.get(t.player_id)?.display_name ?? '—'}</span>
-              <span className="text-bone/40">{txnLabel(t.type)}</span>
+              <span className="text-bone/60">{txnLabel(t.type)}</span>
             </div>
           ))}
-          {activity.length === 0 && <p className="text-bone/50">Nothing yet.</p>}
+          {activity.length === 0 && <p className="text-bone/70">Nothing yet.</p>}
         </div>
       </section>
 
@@ -368,7 +368,7 @@ function ShopItemRow({ item, onSave }: { item: ShopItem; onSave: (it: ShopSave) 
         }}
       />
       <button
-        className={`rounded-lg border px-2 py-1 text-xs ${item.active ? 'border-jade/50 text-jade' : 'border-bone/20 text-bone/40'}`}
+        className={`rounded-lg border px-2 py-1 text-xs ${item.active ? 'border-jade/50 text-jade' : 'border-bone/20 text-bone/60'}`}
         onClick={() => onSave({ ...item, id: item.id, active: !item.active })}
       >
         {item.active ? 'on' : 'off'}
@@ -388,7 +388,7 @@ function QuestEditor({ quests, onSave }: { quests: Quest[]; onSave: (q: Quest) =
             <span className="flex-1 truncate text-sm text-bone">{q.title}</span>
             <span className="font-display text-sm text-gold-300">{q.reward}</span>
             <button
-              className={`rounded-lg border px-2 py-1 text-xs ${q.active ? 'border-jade/50 text-jade' : 'border-bone/20 text-bone/40'}`}
+              className={`rounded-lg border px-2 py-1 text-xs ${q.active ? 'border-jade/50 text-jade' : 'border-bone/20 text-bone/60'}`}
               onClick={() => onSave({ ...q, active: !q.active })}
             >
               {q.active ? 'on' : 'off'}

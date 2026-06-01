@@ -70,7 +70,7 @@
 
   .input {
     @apply w-full rounded-xl border border-gold-500/25 bg-felt-900/60 px-4 py-3 text-bone
-      placeholder:text-bone/30 focus:border-gold-500/70 focus:outline-none;
+      placeholder:text-bone/60 focus:border-gold-500/70 focus:outline-none;
     min-height: 52px;
   }
 
@@ -80,5 +80,26 @@
 
   .label {
     @apply text-xs uppercase tracking-[0.2em] text-gold-300/70;
+  }
+}
+
+@layer utilities {
+  /* Reduced motion: the chip animations are delight, not information. Drop the
+     decorative ones to an instant state; the spinner keeps a slow, calm turn so
+     "loading" still reads. The ChipCount counter also short-circuits in JS. */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-shimmer,
+    .animate-chip-pop,
+    .animate-count-flash {
+      animation: none !important;
+    }
+    .animate-spin {
+      animation-duration: 1.6s !important;
+    }
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+    }
   }
 }
