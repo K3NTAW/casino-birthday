@@ -21,6 +21,8 @@ interface PlayerContextValue {
   /** Admin = server-verified flag on the row AND this device opted in. */
   isAdmin: boolean
   login: (name: string, avatar: string, mode: PlayerMode, adminCode?: string) => Promise<void>
+  /** Get back into an existing account after a storage wipe, via code + name. */
+  reclaim: (code: string, name: string) => Promise<void>
   tryAdmin: (code: string) => Promise<boolean>
   refresh: () => Promise<void>
   logout: () => void
@@ -100,6 +102,21 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     [],
   )
 
+  const reclaim = useCallback(async (code: string, name: string) => {
+    const got = await api.reclaimPlayer(code.trim(), name.trim())
+    const stored: StoredSession = {
+      player_id: got.id,
+      session_token: got.session_token,
+      // Restore host powers on this device if the reclaimed account is an admin.
+      is_admin_device: got.is_admin,
+    }
+    saveSession(stored)
+    setSession(stored)
+    const p = await reads.player(got.id)
+    setPlayer(p)
+    setLoading(false)
+  }, [])
+
   const tryAdmin = useCallback(
     async (code: string) => {
       const s = sessionRef.current
@@ -131,11 +148,12 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       loading,
       isAdmin,
       login,
+      reclaim,
       tryAdmin,
       refresh,
       logout,
     }),
-    [session, player, loading, isAdmin, login, tryAdmin, refresh, logout],
+    [session, player, loading, isAdmin, login, reclaim, tryAdmin, refresh, logout],
   )
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

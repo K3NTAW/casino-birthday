@@ -112,7 +112,7 @@ export default function Settings() {
         onClick={() =>
           ask({
             title: 'Leave the party?',
-            detail: 'This clears this device. Your chips stay safe on the server — rejoin with the same name to get a fresh device login (a new player row).',
+            detail: 'This clears this device. Your chips stay safe on the server — to get this same account back, use “Get back in” on the login screen with your name and player code.',
             confirmLabel: 'Log out',
             danger: true,
             onConfirm: async () => {

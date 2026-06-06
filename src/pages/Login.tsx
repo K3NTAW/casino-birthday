@@ -5,7 +5,7 @@ import { useToast, errMessage } from '@/components/Toast'
 import type { PlayerMode } from '@/lib/types'
 
 export default function Login() {
-  const { login } = usePlayer()
+  const { login, reclaim } = usePlayer()
   const toast = useToast()
   const [name, setName] = useState('')
   const [avatar, setAvatar] = useState(AVATARS[0])
@@ -13,6 +13,9 @@ export default function Login() {
   const [showAdmin, setShowAdmin] = useState(false)
   const [adminCode, setAdminCode] = useState('')
   const [busy, setBusy] = useState(false)
+  const [view, setView] = useState<'join' | 'reclaim'>('join')
+  const [reName, setReName] = useState('')
+  const [reCode, setReCode] = useState('')
 
   const submit = async () => {
     if (!name.trim()) {
@@ -22,6 +25,21 @@ export default function Login() {
     setBusy(true)
     try {
       await login(name, avatar, mode, showAdmin ? adminCode : undefined)
+    } catch (e) {
+      toast.error(errMessage(e))
+      setBusy(false)
+    }
+  }
+
+  const submitReclaim = async () => {
+    if (!reName.trim() || !reCode.trim()) {
+      toast.error('Enter your name and 4-char code')
+      return
+    }
+    setBusy(true)
+    try {
+      await reclaim(reCode, reName)
+      toast.win('Welcome back!')
     } catch (e) {
       toast.error(errMessage(e))
       setBusy(false)
@@ -41,6 +59,7 @@ export default function Login() {
         </p>
       </header>
 
+      {view === 'join' && (
       <div className="deco-card-hero p-5">
         <label className="label">Your name</label>
         <input
@@ -115,11 +134,56 @@ export default function Login() {
           </div>
         )}
       </div>
+      )}
 
-      <p className="mt-6 px-4 text-center text-xs leading-relaxed text-bone/60">
-        Chips are just for fun tonight — no real money, no real value. You can switch between
-        Economy and Casual anytime from settings.
-      </p>
+      {view === 'reclaim' && (
+        <div className="deco-card-hero p-5">
+          <h2 className="font-display text-2xl text-gold-300">Get back in</h2>
+          <p className="mt-1 text-sm leading-snug text-bone/70">
+            Lost your login? Enter the name you joined with and the 4-char player code from your
+            Home screen.
+          </p>
+
+          <label className="label mt-5 block">Your name</label>
+          <input
+            className="input mt-1.5"
+            placeholder="The name you joined with"
+            value={reName}
+            maxLength={20}
+            onChange={(e) => setReName(e.target.value)}
+            autoFocus
+          />
+
+          <label className="label mt-4 block">Your player code</label>
+          <input
+            className="input mt-1.5 text-center font-display text-2xl tracking-[0.3em]"
+            placeholder="ABCD"
+            value={reCode}
+            maxLength={4}
+            inputMode="text"
+            autoCapitalize="characters"
+            onChange={(e) => setReCode(e.target.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase())}
+          />
+
+          <button className="btn-gold mt-6 w-full" onClick={submitReclaim} disabled={busy}>
+            {busy ? 'Finding you…' : 'Get back in'}
+          </button>
+        </div>
+      )}
+
+      <button
+        className="mt-4 w-full text-center text-sm font-semibold text-bone/70 transition hover:text-gold-300"
+        onClick={() => setView((v) => (v === 'join' ? 'reclaim' : 'join'))}
+      >
+        {view === 'join' ? 'Already played tonight? Get back in →' : '← New here? Join the party'}
+      </button>
+
+      {view === 'join' && (
+        <p className="mt-6 px-4 text-center text-xs leading-relaxed text-bone/60">
+          Chips are just for fun tonight — no real money, no real value. You can switch between
+          Economy and Casual anytime from settings.
+        </p>
+      )}
     </div>
   )
 }
