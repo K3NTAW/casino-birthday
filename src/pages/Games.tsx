@@ -189,8 +189,10 @@ function CreateWagerSheet({
   const toast = useToast()
   const [stake, setStake] = useState(String(defaultStake))
   const [picked, setPicked] = useState<string[]>([])
+  const [customName, setCustomName] = useState('')
   const [busy, setBusy] = useState(false)
   const economy = me.mode === 'economy'
+  const isCustom = gameType === 'custom'
 
   const toggle = (id: string) =>
     setPicked((p) => (p.includes(id) ? p.filter((x) => x !== id) : [...p, id]))
@@ -198,9 +200,12 @@ function CreateWagerSheet({
   const create = async () => {
     const s = parseInt(stake, 10) || 0
     if (economy && s > me.balance) return toast.error('Stake exceeds your balance')
+    // For a custom game, the typed name IS the game_type (free text) so it
+    // shows everywhere; fall back to the generic label if left blank.
+    const type = isCustom ? customName.trim() || 'Custom Game' : gameType
     setBusy(true)
     try {
-      const id = await api.createWager(me.id, token, gameType, economy ? s : 0, picked)
+      const id = await api.createWager(me.id, token, type, economy ? s : 0, picked)
       // High Roller auto-quest: a single wager of 200+ chips.
       if (economy && s >= 200) await api.awardAutoQuest(me.id, token, 'high_roller').catch(() => {})
       onCreated(id)
@@ -213,8 +218,24 @@ function CreateWagerSheet({
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-4 backdrop-blur-sm" onClick={onClose}>
       <div className="deco-card w-full max-w-md p-5 safe-bottom" onClick={(e) => e.stopPropagation()}>
-        <h2 className="text-2xl text-gold-300">New {gameLabel(gameType)} wager</h2>
+        <h2 className="text-2xl text-gold-300">
+          New {isCustom && customName.trim() ? customName.trim() : gameLabel(gameType)} wager
+        </h2>
         <div className="deco-divider my-3" />
+
+        {isCustom && (
+          <div className="mb-4">
+            <label className="label">Game name</label>
+            <input
+              className="input mt-1.5"
+              placeholder="e.g. Uno"
+              value={customName}
+              maxLength={24}
+              onChange={(e) => setCustomName(e.target.value)}
+              autoFocus
+            />
+          </div>
+        )}
 
         {economy ? (
           <>
