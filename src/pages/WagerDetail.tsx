@@ -51,6 +51,7 @@ export default function WagerDetail() {
   const amParticipant = !!me
   const isCreator = w.creator_id === player.id
   const allReported = parts.length > 0 && parts.every((p) => p.has_confirmed_result)
+  const reportedCount = parts.filter((p) => p.has_confirmed_result).length
 
   const invalidate = () => {
     void qc.invalidateQueries({ queryKey: keys.wager(id) })
@@ -254,11 +255,27 @@ export default function WagerDetail() {
         </section>
       )}
 
-      {w.state === 'locked' && (
+      {/* Locked and reported are one phase: everyone reports until they agree.
+          The picker stays available to anyone who hasn't reported (the first
+          report flips the wager to 'reported', so gating on 'locked' alone
+          left the others with no way to confirm). */}
+      {(w.state === 'locked' || w.state === 'reported') && (
         <section className="deco-card space-y-3 p-5">
-          <p className="label">Report the result</p>
-          {amParticipant ? (
+          {allReported ? (
+            <div className="space-y-3 text-center">
+              <p className="text-lg text-bone">
+                Everyone agrees:{' '}
+                <span className="text-gold-300">
+                  {w.is_draw ? 'Draw' : `${nameOf(w.winner_id)?.display_name} wins`}
+                </span>
+              </p>
+              <button className="btn-gold w-full" onClick={doSettle}>
+                {w.is_draw ? 'Refund stakes' : `Pay out ${w.pot_total} chips`}
+              </button>
+            </div>
+          ) : amParticipant ? (
             <>
+              <p className="label">Report the result</p>
               <div className="grid grid-cols-1 gap-2">
                 {parts.map((p) => {
                   const info = nameOf(p.player_id)
@@ -288,36 +305,22 @@ export default function WagerDetail() {
               <button className="btn-gold w-full" onClick={doReport}>
                 {me?.has_confirmed_result ? 'Update my report' : 'Submit my report'}
               </button>
+              {reportedCount > 0 && (
+                <p className="text-center text-xs text-bone/55">
+                  {reportedCount}/{parts.length} reported — chips move once everyone agrees.
+                </p>
+              )}
             </>
           ) : (
-            <p className="text-sm text-bone/55">Only participants report the result.</p>
+            <p className="text-center text-sm text-bone/55">
+              Waiting for the players to report the result…
+            </p>
           )}
-          {(amParticipant || isAdmin) && (
+
+          {(amParticipant || isAdmin) && !allReported && (
             <button className="btn-danger w-full" onClick={doCancel}>
               Cancel & refund
             </button>
-          )}
-        </section>
-      )}
-
-      {w.state === 'reported' && (
-        <section className="deco-card space-y-3 p-5 text-center">
-          {allReported ? (
-            <>
-              <p className="text-lg text-bone">
-                Everyone agrees:{' '}
-                <span className="text-gold-300">
-                  {w.is_draw ? 'Draw' : `${nameOf(w.winner_id)?.display_name} wins`}
-                </span>
-              </p>
-              <button className="btn-gold w-full" onClick={doSettle}>
-                {w.is_draw ? 'Refund stakes' : `Pay out ${w.pot_total} chips`}
-              </button>
-            </>
-          ) : (
-            <p className="text-sm text-bone/55">
-              Waiting for the other player(s) to confirm the result…
-            </p>
           )}
         </section>
       )}
