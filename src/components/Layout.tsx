@@ -63,10 +63,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
       <nav
         className="relative z-40 shrink-0 border-t border-gold-500/20 bg-felt-850/90 backdrop-blur-md"
-        // Claw back most of the iOS home-indicator inset so the bar isn't a
-        // big dead band in standalone PWA mode; keep a few px so the indicator
-        // line doesn't sit on the labels. Non-PWA devices get 0.
-        style={{ paddingBottom: 'max(0px, calc(env(safe-area-inset-bottom) - 1.5rem))' }}
+        // Sit the bar flush at the bottom. iOS standalone PWAs report a ~34px
+        // home-indicator inset that otherwise shows as a big dead band; claw
+        // nearly all of it back (keep ~2px so the indicator line doesn't touch
+        // the labels). The tab items' own py-2 gives the breathing room.
+        // Non-PWA devices get 0.
+        style={{ paddingBottom: 'max(0px, calc(env(safe-area-inset-bottom) - 2rem))' }}
       >
         {/* Hairline gold glow riding the top edge of the bar. */}
         <div className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent" />
