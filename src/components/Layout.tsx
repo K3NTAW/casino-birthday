@@ -7,7 +7,6 @@ import {
   IconDice,
   IconHome,
   IconKey,
-  IconReceipt,
   IconSend,
   IconShield,
   IconWine,
@@ -32,7 +31,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         { to: '/home', label: 'Home', Icon: IconHome },
         { to: '/games', label: 'Games', Icon: IconDice },
         { to: '/send', label: 'Send', Icon: IconSend },
-        { to: '/activity', label: 'Activity', Icon: IconReceipt },
         { to: '/quests', label: 'Quests', Icon: IconKey },
         { to: '/shop', label: 'Shop', Icon: IconWine },
       ]
@@ -50,21 +48,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="mx-auto flex min-h-full max-w-md flex-col">
-      {/* safe-top insets under the island/status bar; the bottom padding is a
-          precise nav clearance (nav height + home-indicator inset), no excess. */}
-      <main className="flex-1 px-4 safe-top pb-[calc(5.5rem_+_env(safe-area-inset-bottom))]">
+    // Fixed-height app shell: main scrolls internally, the nav sits in normal
+    // flow at the bottom. This avoids the fixed-nav overscroll gap and the
+    // magic clearance the old layout needed (the source of the bottom padding
+    // weirdness on short/scrolly pages like Games and Activity).
+    <div className="mx-auto flex h-full max-w-md flex-col overflow-hidden">
+      {/* safe-top insets under the island/status bar. main owns the scroll. */}
+      <main className="flex-1 overflow-y-auto overscroll-contain px-4 safe-top pb-6">
         {/* Re-key on route so each screen rises in. */}
         <div key={loc.pathname} className="rise">
           {children}
         </div>
       </main>
 
-      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-gold-500/20 bg-felt-850/90 backdrop-blur-md safe-bottom">
+      <nav className="relative z-40 shrink-0 border-t border-gold-500/20 bg-felt-850/90 backdrop-blur-md safe-bottom">
         {/* Hairline gold glow riding the top edge of the bar. */}
         <div className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent" />
         <div
-          className="mx-auto grid max-w-md"
+          className="grid"
           style={{ gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))` }}
         >
           {tabs.map((t) => {
