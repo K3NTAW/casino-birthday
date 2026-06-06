@@ -137,6 +137,12 @@ export const api = {
       { p_name: name, p_avatar: avatar, p_mode: mode },
     ),
 
+  reclaimPlayer: (code: string, name: string) =>
+    rpc<{ id: string; session_token: string; mode: PlayerMode; balance: number; is_admin: boolean }>(
+      'reclaim_player',
+      { p_code: code, p_name: name },
+    ),
+
   claimAdmin: (playerId: string, token: string, code: string) =>
     rpc<boolean>('claim_admin', { p_player_id: playerId, p_token: token, p_code: code }),
 
