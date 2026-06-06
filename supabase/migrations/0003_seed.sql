@@ -48,17 +48,31 @@ where not exists (select 1 from quests);
 -- ---------------------------------------------------------------------------
 insert into shop_items (name, price, emoji, sort)
 select * from (values
-  ('Water',           10,  '💧', 1),
-  ('Soft Drink',      20,  '🥤', 2),
-  ('Crisps',          25,  '🍿', 3),
-  ('Beer',            40,  '🍺', 4),
-  ('Glass of Wine',   55,  '🍷', 5),
-  ('Mojito',          80,  '🍸', 6),
-  ('Espresso Martini',100, '☕', 7),
-  ('Sausage / Steak', 120, '🍖', 8),
-  ('Champagne Flute', 150, '🥂', 9),
-  -- A deliberately expensive "finish line" only the night's big winner can afford.
-  -- Make it something real & coveted: first cake slice, pick the playlist, etc.
-  ('Grand Prize 👑',  800, '🏆', 10)
+  -- Snacks
+  ('Tortilla Chips',       20,  '🌮', 1),
+  ('Paprika Chips',        20,  '🌶️', 2),
+  ('Nature Chips',         20,  '🥔', 3),
+  ('Salt & Vinegar Chips', 20,  '🧂', 4),
+  ('Salzstängel',          15,  '🥨', 5),
+  ('Popcorn',              15,  '🍿', 6),
+  ('Bread',                15,  '🍞', 7),
+  ('Watermelon',           25,  '🍉', 8),
+  -- Soft drinks
+  ('Coca Cola',            25,  '🥤', 9),
+  ('Coca Cola Zero',       25,  '🧊', 10),
+  ('Nestea Peach',         25,  '🍑', 11),
+  ('Elmer Citro',          25,  '🍋', 12),
+  ('Yuzu Drink',           30,  '🍊', 13),
+  ('Virgin Mojito',        35,  '🌿', 14),
+  -- Alcohol
+  ('Beer',                 45,  '🍺', 15),
+  ('Red Wine',             55,  '🍷', 16),
+  ('Mojito',               70,  '🍸', 17),
+  -- Food
+  ('Cake',                 90,  '🎂', 18),
+  ('Cervelat',             80,  '🌭', 19),
+  ('Bratwurst',            80,  '🌭', 20),
+  ('Steak (pork)',         110, '🍖', 21),
+  ('Steak (beef)',         130, '🥩', 22)
 ) as v(name, price, emoji, sort)
 where not exists (select 1 from shop_items);
