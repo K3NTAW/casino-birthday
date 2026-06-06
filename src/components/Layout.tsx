@@ -61,7 +61,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </main>
 
-      <nav className="relative z-40 shrink-0 border-t border-gold-500/20 bg-felt-850/90 backdrop-blur-md safe-bottom">
+      <nav className="relative z-40 shrink-0 border-t border-gold-500/20 bg-felt-850/90 backdrop-blur-md pb-[env(safe-area-inset-bottom)]">
         {/* Hairline gold glow riding the top edge of the bar. */}
         <div className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent" />
         <div
@@ -75,7 +75,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 key={t.to}
                 to={t.to}
                 className={[
-                  'relative flex flex-col items-center gap-1 py-2.5 text-[11px] font-semibold tracking-wide transition-colors duration-200 ease-out-quart',
+                  'relative flex flex-col items-center gap-1 py-2 text-[11px] font-semibold tracking-wide transition-colors duration-200 ease-out-quart',
                   active ? 'text-gold-300' : 'text-bone/55',
                 ].join(' ')}
               >
